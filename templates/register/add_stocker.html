@@ -1,0 +1,66 @@
+{% extends 'register/common_admin.html' %}
+{% block siddu %}
+    <style>
+    .stocker{
+            padding: 20px;
+            color: wheat;
+            text-align: center;
+            size: 50px;
+            font-size: 50px;
+        }
+    .coloumn {
+        padding: 5px;
+    }
+    .view_all
+    {
+            padding: 5px;
+            color: wheat;
+            text-align: center;
+            font-size: 15px;
+    }
+    .result
+    {
+        background-color: yellow;
+    }
+
+    </style>
+<form action="{% url 'save_stocker' %}" method="post">
+    {% csrf_token %}
+        <table align="center" border="0">
+             <tr><th class="stocker">Add Stocker Details</th></tr>
+             <tr><th class="coloumn">IDNO:<input type="number" placeholder="idno" required name="s1"></th></tr>
+             <tr><th class="coloumn">NAME:<input type="text" placeholder="Name" required name="s2"></th></tr>
+             <tr><th class="coloumn">CONTACT NO:<input type="number" placeholder="contact" required name="s3"></th></tr>
+             <tr><th class="coloumn">PASSWORD<input type="password" placeholder="password" required name="s4"></th></tr>
+             <tr><th class="coloumn"><button type="submit">Save</button></th></tr>
+        </table>
+</form>
+     <table align="center" border="2">
+            <tr><th colspan="4" class="viewall">View All Stocker Details</th></tr>
+            <tr>
+                <th class="view_all">Idno</th>
+                <th class="view_all">Name</th>
+                <th class="view_all">Contact</th>
+                <th class="view_all">Password</th>
+            </tr>
+            {% for x in data %}
+                <tr>
+                    <th class="result">{{ x.idno }}</th>
+                    <th class="result">{{ x.name }}</th>
+                    <th class="result">{{ x.contact }}</th>
+                    <th class="result">{{ x.password }}</th>
+                </tr>
+            {% endfor %}
+        </table>
+    <form action="{% url 'delete_stoker' %}" method="post">
+    {% csrf_token %}
+    <table align="center">
+        <tr>
+            <th>
+                <input type="number" name="t1" value="{{ x.idno }}">
+                        <button type="submit">Delete</button>
+            </th>
+        </tr>
+    </table>
+    </form>
+{% endblock %}
